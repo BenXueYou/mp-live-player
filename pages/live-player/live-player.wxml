@@ -1,0 +1,59 @@
+<import src="../../common/head.wxml" />
+<view class="container live-player">
+  <view class="page-body">
+    <view class="page-section video-container">
+      <live-player autoplay mode="RTC" id="player" src="{{ videoSrc }}" binderror="handleLivePlayerError" bindstatechange="handleLivePlayerStateChange" autoplay="true" catchtap="onVideoTap" muted="{{!openSound}}" class="{{fullScreen ? 'video-item full-screen' :'video-item'}}" bindfullscreenchange="{{fullscreenChange}}" object-fit="{{objectFit}}">
+        <!-- loading状态 -->
+        <cover-view class="video-loading-container" catchtap="onVideoTap" hidden="{{videoLoadingStatus === 100}}">
+          <cover-image class="video-loading-bg" src="./images/live/live_loading_bg.png"></cover-image>
+          <!-- 停止状态 -->
+          <cover-view class="video-loaing video-ready" hidden="{{videoLoadingStatus !== 0}}">
+            <cover-image class="loading-gif" src="./images/live/landscape_play.png" catchtap="handlePlay"></cover-image>
+          </cover-view>
+          <!-- 加载资源中状态 -->
+          <cover-view class="video-loaing" hidden="{{videoLoadingStatus === 0 || videoNetWorkError}}">
+            <cover-image class="loading-gif" src="./images/live/loading_grey.gif"></cover-image>
+            <cover-view class="video-loading-text">视频安全传输中...{{videoLoadingStatus}}%</cover-view>
+          </cover-view>
+        </cover-view>
+        <!-- 加载资源失败状态 -->
+        <cover-view class="video-loading-container" hidden="{{ !videoNetWorkError}}">
+          <cover-image class="video-loading-bg" src="./images/live/live_loading_bg.png"></cover-image>
+          <cover-view class="video-loaing">
+            <cover-image class="loading-gif" src="./images/live/preview_fail.png"></cover-image>
+            <cover-view class="video-loading-text">网络不稳定，加载失败</cover-view>
+            <cover-view class="video-loading-text reTry" ontap="handlePlay">重试</cover-view>
+          </cover-view>
+        </cover-view>
+      </live-player>
+    </view>
+    <view class="page-section">
+      <view class="page-url">选择视频播放协议:</view>
+      <radio-group class="check-box" bindchange="radioChange">
+        <label class="check-box-cell" wx:for="{{radioGroup}}" wx:key="value">
+          <radio color="#299dff" value="{{item.value}}" checked="{{item.checked}}" />
+          <view class="check-box-cell__bd">{{item.label}}</view>
+        </label>
+      </radio-group>
+      <view class="weui-cells__title">项目编码</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input input" value="{{ projectId }}" bindinput="handleProjectIdInput" placeholder="项目编码" />
+        </view>
+      </view>
+      <view class="weui-cells__title">设备序列号</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input input" value="{{ deviceSerial }}" bindinput="handleDeviceSerialInput" placeholder="设备序列号" />
+        </view>
+      </view>
+    </view>
+    <view class="page-section page-section-btns">
+      <button size="mini" bindtap="handlePlay" class="page-body-button btn">播放</button>
+      <button size="mini" bindtap="handlePause" class="page-body-button btn">暂停</button>
+      <button size="mini" bindtap="handleStop" class="page-body-button btn">停止</button>
+      <button size="mini" bindtap="handleResume" class="page-body-button btn">恢复</button>
+      <button size="mini" bindtap="handleMute" class="page-body-button btn">静音</button>
+    </view>
+  </view>
+</view>

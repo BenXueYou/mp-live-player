@@ -1,0 +1,14 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header-img">
+    <image mode="aspectFit" src="../../assets/svg/yunyao-icon.svg"></image>
+  </view>
+  <mp-cells class="my-cells">
+    <mp-cell link url="../video/video" value="H5直播">
+    </mp-cell>
+    <mp-cell link url="../live-player/live-player" value="视频预览">
+    </mp-cell>
+    <mp-cell link url="../playback/playback" value="视频回放">
+    </mp-cell>
+  </mp-cells>
+</view>

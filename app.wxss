@@ -1,0 +1,23 @@
+/**app.wxss**/
+@import "./common/index.wxss";
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 200rpx 0; */
+  box-sizing: border-box;
+}
+
+.page-body {
+  width: 100%;
+  flex-grow: 1;
+}
+
+button,
+.btn {
+  background-color: #299dff;
+  color: #ffffff;
+}
